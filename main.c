@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Bibliotheque.h"
-#include "Livre.h"
+#include "Library.h"
+#include "Book.h"
 
 /**
 *

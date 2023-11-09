@@ -6,14 +6,15 @@
 typedef struct Library
 {
     Book *books;
+    int nbBooks;
     Book (*searchBook)()
 
 } Library;
 
 
-void createBook(Book*, int*);
-Book getBook(char * title);
-void deleteBook(Book*, int*);
+void createBook(Library *);
+Book getBook(Library *, char * title);
+void deleteBook(Library *);
 void printBooks();
 Book searchBook();
 

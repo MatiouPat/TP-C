@@ -5,7 +5,7 @@
 
 typedef struct Library
 {
-    Book * books = NULL;
+    Book * books;
     Book (*searchBook)()
 
 } Library;

@@ -9,6 +9,8 @@
 */
 int initialization(Library * lib)
 {
+    printf("Creation de donnees factices...");
+
     srand(time(NULL));
 
     char title [100];           // book title (ex: A1)
@@ -16,6 +18,8 @@ int initialization(Library * lib)
     int publishDate;            // publish date 2000 -> 2020
 
     lib->books = (Book*)malloc(50 * sizeof(Book));
+    printf("nb book %d\n", lib->nbBooks);
+
     if(lib->books == NULL)
     {
         // desallouer les variables
@@ -35,10 +39,6 @@ int initialization(Library * lib)
         author[1] = (char)(rand()%26+'A');
         author[2] = '\0';
 
-
-        printf("%s\n",title);
-        printf("%s\n",author);
-
         // Random publish date between 2000 and 2020
         publishDate = 2000+rand()%21;
 
@@ -49,10 +49,15 @@ int initialization(Library * lib)
         b.publishDate = publishDate;
         b.isBorrowed = false;
 
+        printf("%s ", b.title);
+        printf("%s, ", b.author);
+
         // We add the book to the library
         lib->nbBooks++;
 
-        lib->books[lib->nbBooks-1] = b;
+        lib->books[i] = b;
+        printf("%s ajoutez index %d.\n", lib->books[i].title, i);
+        printf("nb book boucle %d\n", lib->nbBooks);
 
     }
     return 0;
@@ -61,8 +66,9 @@ int initialization(Library * lib)
 
 int main()
 {
-    Book *books = (Book*)malloc(0 * sizeof(Book));
-    Library lib = {books, 0};
+    //Book *books = (Book*)malloc(0 * sizeof(Book));
+    Library lib = {0};
+    printf("%d", lib.nbBooks);
 
     if (initialization(&lib)) {
         return 1;
@@ -72,18 +78,13 @@ int main()
     //createBook(&lib);
     //createBook(&lib);
 
-    printBooks();
-
     //deleteBook(&lib);
-    /*for(int i = 0; i < lib.nbBooks; i++)
-    {
-        printf("%i:", i);
-        printf("Nom ");
-        printf("%s", lib.books[i].title);
-    }*/
-    printBooks(&lib);
+    addBook(&lib);
+
+    //printBooks(&lib);
 
     printf("free");
-    free(lib.books);
+    freeLib(&lib);
+
     return 0;
 }

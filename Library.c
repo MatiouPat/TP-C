@@ -4,18 +4,16 @@
 /**
 * Create a book in the library by querying
 */
-//void createBook(Book *books, int *size)
-void createBook(Library * lib)
+void addBook(Library * lib)
 {
     //Memory allocation
     lib->nbBooks++;
     lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
 
-    //Book creation
-    printf("Quel est le titre du livre ? \n");
-    scanf(" %[^\n]", lib->books[lib->nbBooks-1].title);
-    printf("Quel est l'auteur du livre ? \n");
-    scanf(" %[^\n]", lib->books[lib->nbBooks-1].author);
+    Book b = createBook();
+    lib->books[lib->nbBooks-1] = b;
+
+    printf("\n Livre %s ajoute !\n", b.title);
 }
 
 /**
@@ -93,3 +91,11 @@ void printBooks(Library * lib)
     }
 }
 
+
+/**
+* Free all memory from attributes
+*/
+void freeLib(Library * lib)
+{
+    free(lib->books);
+}

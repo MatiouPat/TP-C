@@ -8,10 +8,13 @@ typedef struct Book
 {
     char title[100];
     char author[100];
-    time_t publishDate;
+    int publishDate;
     bool isBorrowed;
     time_t borrowingDate;
     time_t returnDate;
 }Book;
+
+
+Book createBook();
 
 #endif // BOOK_H_INCLUDED

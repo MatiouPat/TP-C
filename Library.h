@@ -5,15 +5,15 @@
 
 typedef struct Library
 {
-    Book * books;
+    Book *books;
     Book (*searchBook)()
 
 } Library;
 
 
-Book addBook(Book book);
+void createBook(Book*, int*);
 Book getBook(char * title);
-Book removeBook(char * title);
+void deleteBook(Book*, int*);
 void printBooks();
 Book searchBook();
 

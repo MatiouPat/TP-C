@@ -55,4 +55,41 @@ void deleteBook(Library * lib)
         lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
     }
 }
+/*
+#include <windows.h>
+void color(int t,int f)
+{
+        HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
+            SetConsoleTextAttribute(H,f*16+t);
+}*/
+
+/**
+* Print all the books of the library in the console
+*/
+void printBooks(Library * lib)
+{
+   for(int i = 0 ; i < lib->nbBooks ; i++)
+    {
+        //printf("\n");
+        /*color(15, 0);
+        color(3, 3);
+        printf("a");
+        color(15, 0);
+        printf("-%i-", i+1);
+        color(3, 3);
+        printf("a");
+        color(15, 0);*/
+
+        //printf("- %d - \n", i+1);
+        printf("-%d-\n", i);
+        printf("\tNom : %s \n", lib->books[i].title);
+        printf("\tAuteur : %s\n", lib->books[i].author);
+        printf("\tDate de publication : %d\n", lib->books[i].publishDate);
+
+        printf("\tDisponible : %s\n", lib->books[i].isBorrowed?"Non":"Oui");
+
+        printf("\n");
+
+    }
+}
 

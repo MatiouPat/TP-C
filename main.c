@@ -4,48 +4,58 @@
 #include "Book.h"
 
 /**
-* Cree 50 Book et les ajoute a la Library passee en parametre
-* @params lib
+* Create 50 Book and add them to the Library in parameters
+* @params lib : the Library where to add the books
 */
-void initialization(Library * lib)
+int initialization(Library * lib)
 {
     srand(time(NULL));
 
-    char title [100];     // titre du livre (ex : A1)
-    char author [100];    // auteur (ex : AA)
-    int publishDate;    // date de publication 2000 -> 2020
+    char title [100];           // book title (ex: A1)
+    char author [100];          // author (ex: AA)
+    int publishDate;            // publish date 2000 -> 2020
 
-    //lib->books = (Book *)realloc(lib->nbBooks, lib->nbBooks * sizeof(Book));
-
+    lib->books = (Book*)malloc(50 * sizeof(Book));
+    if(lib->books == NULL)
+    {
+        // desallouer les variables
+        // quitter le programme
+        return 1;
+    }
 
     for (int i = 0 ; i < 50 ; i++)
     {
+        // Random book title
         title[0] = (char)(rand()%26+'A');
         title[1] = (rand()%10 + '0');
+        title[2] = '\0';
 
+        // Random author name
         author[0] = (char)(rand()%26+'A');
         author[1] = (char)(rand()%26+'A');
+        author[2] = '\0';
 
+
+        printf("%s\n",title);
+        printf("%s\n",author);
+
+        // Random publish date between 2000 and 2020
         publishDate = 2000+rand()%21;
 
-        printf("%s\n", title);
-
-
+        // We create the book
         Book b;
         strcpy(b.title, title);
-        strcpy(b.title, author);
+        strcpy(b.author, author);
         b.publishDate = publishDate;
         b.isBorrowed = false;
 
-        Book b1 = {"title", "author", 2020, false};
-        printf("%s \n", b.title);
-        printf("%s \n", b1.title);
+        // We add the book to the library
         lib->nbBooks++;
-        lib->books = (Book *)realloc(lib->books, lib->nbBooks * sizeof(Book));
+
         lib->books[lib->nbBooks-1] = b;
-        printf("%s \n", lib->books[lib->nbBooks-1].title);
 
     }
+    return 0;
 }
 
 
@@ -54,32 +64,26 @@ int main()
     Book *books = (Book*)malloc(0 * sizeof(Book));
     Library lib = {books, 0};
 
-    initialization(&lib);
-
-    printf(" test %s \n", lib.books[5].title);
-
-    if(books == NULL)
-    {
+    if (initialization(&lib)) {
         return 1;
     }
-    else
-    {
-        //createBook(&lib);
-        //createBook(&lib);
 
-        for(int i = 0; i < lib.nbBooks; i++)
-        {
-            printf("%i:", i);
-            printf("Nom ");
-            printf("%s \n", lib.books[i].title);
-        }
-        deleteBook(&lib);
-        /*for(int i = 0; i < lib.nbBooks; i++)
-        {
-            printf("%i:", i);
-            printf("Nom ");
-            printf("%s", lib.books[i].title);
-        }*/
-    }
+
+    //createBook(&lib);
+    //createBook(&lib);
+
+    printBooks();
+
+    //deleteBook(&lib);
+    /*for(int i = 0; i < lib.nbBooks; i++)
+    {
+        printf("%i:", i);
+        printf("Nom ");
+        printf("%s", lib.books[i].title);
+    }*/
+    printBooks(&lib);
+
+    printf("free");
+    free(lib.books);
     return 0;
 }

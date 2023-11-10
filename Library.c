@@ -118,6 +118,7 @@ int searchBookByExactTitle(Library * lib, char titleBook[100])
         }
         i++;
     }
+    return foundBookIndex;
 }
 
 /**

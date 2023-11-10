@@ -73,10 +73,13 @@ int main()
     //borrowBook(&lib);
     //deleteBook(&lib);
     //deleteBook(&lib);
-    Book b = createBook();
-    addBook(&lib, b);
+    //Book b = createBook();
+    //addBook(&lib, b);
 
-    printBooks(&lib);
+    //printBooks(&lib);
+    Book b1 = {"aaa"};
+    Book b2 = {"abb"};
+    isAlphabeticallySorted(b1, b2);
 
     printf("free");
     freeLib(&lib);

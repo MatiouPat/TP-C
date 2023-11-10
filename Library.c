@@ -10,6 +10,14 @@ void addBook(Library * lib, Book b)
     lib->nbBooks++;
     lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
 
+
+    for (int i = 0 ; i < lib->nbBooks ; i++)
+    {
+        if(strcmp(b.title, lib->books[i].title) == 0)
+        {
+
+        }
+    }
     lib->books[lib->nbBooks-1] = b;
 
     printf("\n Livre %s ajoute !\n", b.title);

@@ -18,3 +18,24 @@ Book createBook()
 
     return b;
 }
+
+
+/**
+* Checks that the first book passed as a parameter is sorted alphabetically compared to the second
+*/
+bool isAlphabeticallySorted(Book * b1, Book * b2)
+{
+    int i = 0;
+    int lenBook1 = 0;
+    printf("%c\n", b1->title[0]);
+
+    while (b1->title[i] != '\0')
+    {
+        printf("%s\n", (b1->title[i] == '\0')?"true":"false");
+        printf("%c\n",b1->title[i]);
+        lenBook1;
+    }
+
+    printf("%d\n", lenBook1);
+
+}

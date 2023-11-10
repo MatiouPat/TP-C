@@ -20,35 +20,21 @@ void addBook(Library * lib, Book * b)
         lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
     }
 
+
     for (int i = 0 ; i < (lib->nbBooks - 1) ; i++)
     {
-            printf("livre 1 %s", b->title);
-            printf(" livre 2 %s\n", lib->books[i].title);
-            int isSorted = isAlphabeticallySorted(b->title, lib->books[i].title);
-        if (isSorted == 1)
-        {
-            printf("On ajoute le livre %s position %d", b->title, i);
-            printf(" a la place de %s\n", lib->books[i].title);
-
-            for (int j = (lib->nbBooks - 1) ; j > i; j--)
-            {
-                lib->books[j] = lib->books[j-1];
-            }
-            lib->books[i] = (Book)*b;
-            break;
-        }
-        else if (isSorted == 0)
+        int isSorted = strcmp(b->title, lib->books[i].title);
+        if (isSorted == 0)
         {
             printf("\nImpossible d'ajouter plusieurs livre avec le meme nom !\n");
             lib->nbBooks--;
             lib->nbBookAdded--;
             lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
-
             return;
         }
     }
-    lib->books[lib->nbBooks-1] = (Book)*b;
-    //printf("\n Livre %s ajoute !\n", lib);
+    lib->books[lib->nbBooks - 1] = (Book)*b;
+
 }
 
 /**

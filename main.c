@@ -18,15 +18,13 @@ int initialization(Library * lib)
     char author [100];          // author (ex: AA)
     int publishDate;            // publish date 2000 -> 2020
 
-    //lib->books = (Book*)malloc(50 * sizeof(Book));
     if(lib->books == NULL)
     {
-        // desalloue la library et quitte le programme
+        // free the memory and exit the program
         freeLib(&lib);
         return 1;
     }
 
-    //for (int i = 0 ; i < 50 ; i++)
     int i = -1;
     while (lib->nbBooks < 50)
     {
@@ -54,12 +52,8 @@ int initialization(Library * lib)
         Book * ptrBook = &b;
 
         // We add the book to the library
-        //lib->nbBooks++;
-        //printf("nb books (main) %d\n", lib->nbBooks);
         addBook(lib, ptrBook);
 
-        //lib->books[i] = b;
-        //printf("Ajout du livre %s.\n", lib->books[i].title);
 
     }
     return 0;
@@ -70,7 +64,6 @@ int initialization(Library * lib)
 int main()
 {
     Book *books;
-    Book *newBook;
     Library lib = {books, 0, 0};
     Library * ptrLib = &lib;
 
@@ -81,6 +74,9 @@ int main()
         return 1;
     }
 
+    printf("\nAppuyer sur n'importe quelle touche pour continuer\n");
+    getch();
+
     while(isExecute)
     {
         printf("\033c");
@@ -89,6 +85,11 @@ int main()
         {
             printf("\e[5m\e[31m/!\\ Attention ! %d livre(s) pas encore rendu !\e[0m \n\n", numberOfLateReturn);
         }
+
+        /*
+
+
+        */
         printf("\e[1m Que voulez-vous faire ? \e[0m \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 4) Rechercher un livre... \n 5) Emprunter un livre \n 6) Rendre un livre \n 7) Modifier un livre \n 8) Voir les livres en retard de rendu \n 9) Afficher statistiques \n 0) Quitter l'application \n");
         scanf("%d", &actionChoice);
         switch(actionChoice)
@@ -104,8 +105,10 @@ int main()
                 break;
             case 2:
                 printf("\033c");
-                *newBook = createBook();
-                addBook(&lib, &newBook);
+                Book bookToAdd;
+                Book * ptrBookToAdd = &bookToAdd;
+                bookToAdd = createBook();
+                addBook(&lib, ptrBookToAdd);
                 break;
             case 3:
                 printf("\033c");

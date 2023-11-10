@@ -103,14 +103,12 @@ void printBooks(Book* books, int size)
         {
             printf("\t\e[1m Disponible : \e[0m \e[32m Oui \e[0m\n");
         }
-
         printf("\n");
-
     }
 }
 
 /**
-* Borrow a book with a specific return date
+* Borrow a book with a specific return date or borrowing period
 */
 void borrowBook(Library * lib)
 {
@@ -178,10 +176,10 @@ void returnBook(Library * lib)
 int searchBookByExactTitle(Library * lib, char titleBook[100])
 {
     int foundBookIndex = -1;
-    //Search by title
     int i = 0;
     while((i < (lib->nbBooks)) && (foundBookIndex == -1))
     {
+        //Search by title
         if(strcmp(titleBook, lib->books[i].title) == 0)
         {
             foundBookIndex = i;
@@ -205,9 +203,9 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
     }
     else
     {
-        //Search by title
         for(int i = 0; i < (lib->nbBooks); i++)
         {
+            //Search by title
             if(strstr(lib->books[i].title, titleBook) != NULL)
             {
                 nbFound++;
@@ -289,9 +287,9 @@ void searchBookByAuthor(Library * lib, char author[100])
     }
     else
     {
-        //Search by title
         for(int i = 0; i < (lib->nbBooks); i++)
         {
+            //If the author of a book is equal to the author, the book is added to our search table.
             if(strstr(lib->books[i].author, author) != NULL)
             {
                 nbFound++;
@@ -318,9 +316,9 @@ void searchBookByPublishYear(Library * lib, int publishYear)
     }
     else
     {
-        //Search by title
         for(int i = 0; i < (lib->nbBooks - 1); i++)
         {
+            //If a book's publication date is equal to the search date, the book is added to our search table.
             if(lib->books[i].publishYear == publishYear)
             {
                 nbFound++;
@@ -433,9 +431,9 @@ void searchBookInLateReturn(Library * lib)
     }
     else
     {
-        //Search by title
         for(int i = 0; i < lib->nbBooks; i++)
         {
+            //If a date has expired, the book is added to our search table.
             if(lib->books[i].isBorrowed && hasExpiredReturnDate(lib->books[i].returnDate))
             {
                 nbFound++;

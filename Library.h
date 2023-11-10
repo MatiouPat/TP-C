@@ -13,7 +13,7 @@ typedef struct Library
 } Library;
 
 
-void addBook(Library *, Book);
+void addBook(Library *, Book *);
 Book getBook(Library *, char * title);
 void deleteBook(Library *);
 void printBooks();

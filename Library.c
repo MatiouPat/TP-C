@@ -4,31 +4,50 @@
 /**
 * Create a book in the library by querying
 */
-void addBook(Library * lib, Book b)
+void addBook(Library * lib, Book * b)
 {
-    printf("add book\n");
     //Memory allocation
     lib->nbBooks++;
-    lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
+    if (lib->nbBooks == 1)
+    {
+        lib->books = (Book*)malloc(1 * sizeof(Book));
+        lib->books[0] = (Book)*b;
+        return;
+    }
+    else
+    {
+        lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
+    }
 
-    printf("realloc\n");
-
-    //
     for (int i = 0 ; i < (lib->nbBooks - 1) ; i++)
     {
-        if (isAlphabeticallySorted(b, lib->books[i]) == 1)
+            printf("livre 1 %s", b->title);
+            printf(" livre 2 %s\n", lib->books[i].title);
+            int isSorted = isAlphabeticallySorted(b->title, lib->books[i].title);
+        if (isSorted == 1)
         {
-            for (int j = (lib->nbBooks - 1) ; j > i; j--) {
-                    printf("%d %d\n", i, j);
+            printf("On ajoute le livre %s position %d", b->title, i);
+            printf(" a la place de %s\n", lib->books[i].title);
+
+            for (int j = (lib->nbBooks - 1) ; j > i; j--)
+            {
                 lib->books[j] = lib->books[j-1];
             }
-            lib->books[i] = b;
+            lib->books[i] = (Book)*b;
+
             break;
         }
-    }
-    //lib->books[lib->nbBooks-1] = b;
+        else if (isSorted == 0)
+        {
+            printf("\nImpossible d'ajouter plusieurs livre avec le meme nom !\n");
+            lib->nbBooks--;
+            lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
 
-    printf("\n Livre %s ajoute !\n", b.title);
+            return;
+        }
+    }
+    lib->books[lib->nbBooks-1] = (Book)*b;
+    //printf("\n Livre %s ajoute !\n", lib);
 }
 
 /**
@@ -51,7 +70,14 @@ void deleteBook(Library * lib)
             lib->books[i] = lib->books[i+1];
         }
         lib->nbBooks--;
-        lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
+        if (lib->nbBooks == 0)
+        {
+            freeLib(&lib);
+        }
+        else
+        {
+            lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
+        }
     }
 }
 /*

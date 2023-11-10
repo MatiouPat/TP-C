@@ -99,24 +99,34 @@ Book * editBook(Book * book)
 * @returns 1: book1.title < book2.title (sorted)
 * @returns 2: book1.title > book2.title (not sorted)
 */
-int isAlphabeticallySorted(Book * b1, Book * b2)
+int isAlphabeticallySorted(char * title1, char * title2)
 {
     int i = 0;
     char letterB1, letterB2;
 
     // We compare letter to letter and return in case one is greater than other
-    while ((b1->title[i] != '\0') && (b2->title[i] != '\0'))
+    //while ((b1->title[i] != '\0') && (b2->title[i] != '\0'))
+    while ((title1[i] != '\0') && (title2[i] != '\0'))
     {
-        letterB1 = tolower(b1->title[i]);
-        letterB2 = tolower(b2->title[i]);
+
+        //printf("%c - ", b1->title[i]);
+        //printf("%c\n", b2->title[i]);
+
+        letterB1 = tolower(title1[i]);
+        //letterB1 = tolower(b1->title[i]);
+        letterB2 = tolower(title2[i]);
+        //letterB2 = tolower(b2->title[i]);
+
+        printf("%c - ", letterB1);
+        printf("%c\n", letterB2);
 
         if (letterB1 < letterB2)
         {
+            printf("%c > %c", letterB1, letterB2);
             return 1;
         }
         else if (letterB1 > letterB2)
         {
-            printf("tic");
             return 2;
         }
 
@@ -125,11 +135,13 @@ int isAlphabeticallySorted(Book * b1, Book * b2)
 
     // If one or both of the string are finished
     // we check their length
-    if ((b1->title[i] == '\0') && (b2->title[i] == '\0'))
+    //if ((b1->title[i] == '\0') && (b2->title[i] == '\0'))
+    if ((title1[i] == '\0') && (title2[i] == '\0'))
     {
         return 0;
     }
-    else if (b1->title[i] == '\0')
+    //else if (b1->title[i] == '\0')
+    else if (title1[i] == '\0')
     {
         return 1;
     }

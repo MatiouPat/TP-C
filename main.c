@@ -18,7 +18,7 @@ int initialization(Library * lib)
     char author [100];          // author (ex: AA)
     int publishDate;            // publish date 2000 -> 2020
 
-    lib->books = (Book*)malloc(50 * sizeof(Book));
+    //lib->books = (Book*)malloc(50 * sizeof(Book));
     if(lib->books == NULL)
     {
         // desalloue la library et quitte le programme
@@ -26,8 +26,11 @@ int initialization(Library * lib)
         return 1;
     }
 
-    for (int i = 0 ; i < 50 ; i++)
+    //for (int i = 0 ; i < 50 ; i++)
+    int i = -1;
+    while (lib->nbBooks < 50)
     {
+        i++;
         // Random book title
         title[0] = (char)(rand()%26+'A');
         title[1] = (rand()%10 + '0');
@@ -48,10 +51,15 @@ int initialization(Library * lib)
         b.publishDate = (Date){0, 0, publishDate};
         b.isBorrowed = false;
 
+        Book * ptrBook = &b;
+
         // We add the book to the library
-        lib->nbBooks++;
-        lib->books[i] = b;
-        printf("Ajout du livre %s.\n", lib->books[i].title);
+        //lib->nbBooks++;
+        //printf("nb books (main) %d\n", lib->nbBooks);
+        addBook(lib, ptrBook);
+
+        //lib->books[i] = b;
+        //printf("Ajout du livre %s.\n", lib->books[i].title);
 
     }
     return 0;
@@ -62,14 +70,18 @@ int initialization(Library * lib)
 int main()
 {
     Book *books;
-    Book newBook;
+    Book *newBook;
     Library lib = {books, 0};
+    Library * ptrLib = &lib;
+
     int actionChoice = 0;
     bool isExecute = true;
 
-    if (initialization(&lib)) {
+    if (initialization(ptrLib)) {
         return 1;
     }
+
+    getch();
 
     while(isExecute)
     {
@@ -89,8 +101,8 @@ int main()
                 break;
             case 2:
                 printf("\033c");
-                newBook = createBook();
-                addBook(&lib, newBook);
+                *newBook = createBook();
+                addBook(&lib, &newBook);
                 break;
             case 3:
                 printf("\033c");

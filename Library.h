@@ -15,14 +15,18 @@ typedef struct Library
 
 
 void addBook(Library *, Book *);
-Book getBook(Library *, char * title);
 void deleteBook(Library *);
-void printBooks();
-Book searchBook();
-int searchBookByExactTitle(Library *, char[]);
+void printBooks(Book*, int);
 void borrowBook(Library *);
-void freeLib(Library *);
+void returnBook(Library *)
+int searchBookByExactTitle(Library *, char[]);
+void searchBookByApproximateTitle(Library *, char[]});
 void editBookFromLibrary(Library *);
+void searchBookByAuthor(Library *, char[]);
+void searchBookByPublishYear(Library *, int);
 void printStats(Library *);
+void freeLib(Library *);
+int getNumberOfLateReturns(Library *);
+void searchBookInLateReturn(Library *);
 
 #endif // LIBRARY_H_INCLUDED

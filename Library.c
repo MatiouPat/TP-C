@@ -79,16 +79,22 @@ void printBooks(Book* books, int size)
         printf("\t\e[1m Nom : \e[0m %s \n", books[i].title);
         printf("\t\e[1m Auteur : \e[0m %s\n", books[i].author);
         printf("\t\e[1m Date de publication : \e[0m %d\n", books[i].publishYear);
-
-        printf("\t\e[1m Disponible : \e[0m %s\n", books[i].isBorrowed?"\e[31m Non \e[0m":"\e[32m Oui \e[0m");
-
+        if(books[i].isBorrowed)
+        {
+            printf("\t\e[1m Disponible : \e[0m \e[31m Non \e[0m\n");
+            printf("\t\t\e[1m Emprunte le : %i/%i/%i \n", books[i].borrowingDate.day, books[i].borrowingDate.month, books[i].borrowingDate.year);
+            printf("\t\t\e[1m Normalement rendu le : %i/%i/%i \n", books[i].returnDate.day, books[i].returnDate.month, books[i].returnDate.year);
+        }
+        else
+        {
+            printf("\t\e[1m Disponible : \e[0m \e[32m Oui \e[0m\n");
+        }
         printf("\n");
-
     }
 }
 
 /**
-* Borrow a book with a specific return date
+* Borrow a book with a specific return date or borrowing period
 */
 void borrowBook(Library * lib)
 {
@@ -156,10 +162,10 @@ void returnBook(Library * lib)
 int searchBookByExactTitle(Library * lib, char titleBook[100])
 {
     int foundBookIndex = -1;
-    //Search by title
     int i = 0;
     while((i < (lib->nbBooks)) && (foundBookIndex == -1))
     {
+        //Search by title
         if(strcmp(titleBook, lib->books[i].title) == 0)
         {
             foundBookIndex = i;
@@ -183,9 +189,9 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
     }
     else
     {
-        //Search by title
         for(int i = 0; i < (lib->nbBooks); i++)
         {
+            //Search by title
             if(strstr(lib->books[i].title, titleBook) != NULL)
             {
                 nbFound++;
@@ -197,7 +203,6 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
         free(findBooks);
     }
 }
-
 
 void editBookFromLibrary(Library * lib)
 {
@@ -268,9 +273,9 @@ void searchBookByAuthor(Library * lib, char author[100])
     }
     else
     {
-        //Search by title
         for(int i = 0; i < (lib->nbBooks); i++)
         {
+            //If the author of a book is equal to the author, the book is added to our search table.
             if(strstr(lib->books[i].author, author) != NULL)
             {
                 nbFound++;
@@ -297,9 +302,9 @@ void searchBookByPublishYear(Library * lib, int publishYear)
     }
     else
     {
-        //Search by title
         for(int i = 0; i < (lib->nbBooks - 1); i++)
         {
+            //If a book's publication date is equal to the search date, the book is added to our search table.
             if(lib->books[i].publishYear == publishYear)
             {
                 nbFound++;
@@ -382,6 +387,9 @@ void freeLib(Library * lib)
     free(lib->books);
 }
 
+/**
+* Returns the number of books overdue for return
+*/
 int getNumberOfLateReturns(Library * lib)
 {
     int numberOfLateReturns = 0;
@@ -395,6 +403,9 @@ int getNumberOfLateReturns(Library * lib)
     return numberOfLateReturns;
 }
 
+/**
+* Displays books that are overdue for return
+*/
 void searchBookInLateReturn(Library * lib)
 {
     int nbFound = 0;
@@ -406,9 +417,9 @@ void searchBookInLateReturn(Library * lib)
     }
     else
     {
-        //Search by title
         for(int i = 0; i < lib->nbBooks; i++)
         {
+            //If a date has expired, the book is added to our search table.
             if(lib->books[i].isBorrowed && hasExpiredReturnDate(lib->books[i].returnDate))
             {
                 nbFound++;

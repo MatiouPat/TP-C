@@ -14,4 +14,7 @@ typedef struct Book
     Date returnDate;
 }Book;
 
+
+Book createBook();
+
 #endif // BOOK_H_INCLUDED

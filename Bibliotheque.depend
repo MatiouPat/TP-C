@@ -1,28 +1,28 @@
 # depslib dependency file v1.0
 1699535072 source:e:\poei\tp\bibliotheque\livre.c
 
-1699606671 source:c:\users\virgi\documents\github\tp-c\main.c
+1699614115 source:c:\users\virgi\documents\github\tp-c\main.c
 	<stdio.h>
 	<stdlib.h>
 	"Library.h"
 	"Book.h"
 	"Date.h"
 
-1699605692 c:\users\virgi\documents\github\tp-c\library.h
+1699612955 c:\users\virgi\documents\github\tp-c\library.h
 	"Book.h"
 	"Date.h"
 
-1699606668 c:\users\virgi\documents\github\tp-c\book.h
+1699612713 c:\users\virgi\documents\github\tp-c\book.h
 	<stdbool.h>
 	"Date.h"
 
 1699605319 c:\users\virgi\documents\github\tp-c\date.h
 	<time.h>
 
-1699606819 source:c:\users\virgi\documents\github\tp-c\book.c
+1699613122 source:c:\users\virgi\documents\github\tp-c\book.c
 	"Book.h"
 
-1699606483 source:c:\users\virgi\documents\github\tp-c\library.c
+1699614081 source:c:\users\virgi\documents\github\tp-c\library.c
 	"Library.h"
 	"Book.h"
 	<windows.h>

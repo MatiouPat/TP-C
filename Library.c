@@ -4,13 +4,12 @@
 /**
 * Create a book in the library by querying
 */
-void addBook(Library * lib)
+void addBook(Library * lib, Book b)
 {
     //Memory allocation
     lib->nbBooks++;
     lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
 
-    Book b = createBook();
     lib->books[lib->nbBooks-1] = b;
 
     printf("\n Livre %s ajoute !\n", b.title);
@@ -68,7 +67,7 @@ void printBooks(Library * lib)
         printf("-%d-\n", i);
         printf("\tNom : %s \n", lib->books[i].title);
         printf("\tAuteur : %s\n", lib->books[i].author);
-        printf("\tDate de publication : %d/%d/%d\n", lib->books[i].publishDate.day, lib->books[i].publishDate.month, lib->books[i].publishDate.year);
+        printf("\tDate de publication : %d\n", lib->books[i].publishDate.year);
 
         printf("\tDisponible : %s\n", lib->books[i].isBorrowed?"Non":"Oui");
 

@@ -109,7 +109,7 @@ void printBooks(Book* books, int size)
         printf("-%d-\n", i+1);
         printf("\t\e[1m Nom : \e[0m %s \n", books[i].title);
         printf("\t\e[1m Auteur : \e[0m %s\n", books[i].author);
-        printf("\t\e[1m Date de publication : \e[0m %d\n", books[i].publishDate.year);
+        printf("\t\e[1m Date de publication : \e[0m %d\n", books[i].publishYear);
 
         printf("\t\e[1m Disponible : \e[0m %s\n", books[i].isBorrowed?"\e[31m Non \e[0m":"\e[32m Oui \e[0m");
 
@@ -124,6 +124,7 @@ void printBooks(Book* books, int size)
 void borrowBook(Library * lib)
 {
     char titleToBorrow[100];
+    int returnChoice;
 
     printf("Quel livre voulez-vous emprunter ? \n\r");
     scanf(" %[^\n]", &titleToBorrow);
@@ -132,17 +133,34 @@ void borrowBook(Library * lib)
 
     if(indexToBorrow != -1)
     {
-        lib->books[indexToBorrow].isBorrowed = true;
-        lib->books[indexToBorrow].borrowingDate = now();
-
+        Date initalDate = now();
         int day;
         int month;
         int year;
-        printf("Quand rendez-vous le livre ? (ex : 10/11/2023) \n\r");
-        scanf("%d/%d/%d", &day, &month, &year);
+        int duration;
 
-        Date returnDate = {day, month, year};
-        lib->books[indexToBorrow].returnDate = returnDate;
+        lib->books[indexToBorrow].isBorrowed = true;
+        lib->books[indexToBorrow].borrowingDate = initalDate;
+
+        printf("Quand rendez-vous le livre ? \n 1) Sur une date precise \n 2) Sur une duree \n ");
+        scanf("%i", &returnChoice);
+
+        if(returnChoice == 1)
+        {
+            printf("A quelle date rendez-vous le livre ? (ex : 10/11/2023) \n\r");
+            scanf("%d/%d/%d", &day, &month, &year);
+
+            Date returnDate = {day, month, year};
+            lib->books[indexToBorrow].returnDate = returnDate;
+        }
+        else
+        {
+            printf("Dans combien de temps rendez-vous le livre ? (en jour) \n\r");
+            scanf("%d", &duration);
+
+            Date returnDate = calculateDateFromDuration(initalDate, duration);
+            lib->books[indexToBorrow].returnDate = returnDate;
+        }
     }
 }
 
@@ -325,7 +343,7 @@ void searchBookByPublishYear(Library * lib, int publishYear)
         //Search by title
         for(int i = 0; i < (lib->nbBooks - 1); i++)
         {
-            if(lib->books[i].publishDate.year == publishYear)
+            if(lib->books[i].publishYear == publishYear)
             {
                 nbFound++;
                 findBooks = (Book*)realloc(findBooks, nbFound * sizeof(Book));

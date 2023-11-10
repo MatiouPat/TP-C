@@ -8,7 +8,7 @@ typedef struct Book
 {
     char title[100];
     char author[100];
-    Date publishDate;
+    int publishYear;
     bool isBorrowed;
     Date borrowingDate;
     Date returnDate;

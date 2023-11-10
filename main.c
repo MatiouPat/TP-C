@@ -48,7 +48,7 @@ int initialization(Library * lib)
         Book b;
         strcpy(b.title, title);
         strcpy(b.author, author);
-        b.publishDate = (Date){0, 0, publishDate};
+        b.publishYear = publishDate;
         b.isBorrowed = false;
 
         Book * ptrBook = &b;
@@ -96,7 +96,7 @@ int main()
             case 1:
                 printf("\033c");
                 printBooks(lib.books, lib.nbBooks);
-                printf("Appuyer sur n'importe quel touche pour continuer...\n");
+                printf("Appuyer sur n'importe quelle touche pour continuer...\n");
                 getch();
                 break;
             case 2:
@@ -123,7 +123,7 @@ int main()
                         printf("Quel titre de livre recherchez-vous ? \n");
                         scanf(" %[^\n]", &titleToSearch);
                         searchBookByApproximateTitle(&lib, titleToSearch);
-                        printf("Appuyer sur n'importe quel touche pour continuer\n");
+                        printf("Appuyer sur n'importe quelle touche pour continuer\n");
                         getch();
                         break;
                     case 2:
@@ -131,7 +131,7 @@ int main()
                         printf("Quel auteur recherchez-vous ? \n");
                         scanf(" %[^\n]", &authorToSearch);
                         searchBookByAuthor(&lib, authorToSearch);
-                        printf("Appuyer sur n'importe quel touche pour continuer\n");
+                        printf("Appuyer sur n'importe quelle touche pour continuer\n");
                         getch();
                         break;
                     case 3:

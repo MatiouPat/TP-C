@@ -8,6 +8,7 @@ void addBook(Library * lib, Book * b)
 {
     //Memory allocation
     lib->nbBooks++;
+    lib->nbBookAdded++;
     if (lib->nbBooks == 1)
     {
         lib->books = (Book*)malloc(1 * sizeof(Book));
@@ -34,13 +35,13 @@ void addBook(Library * lib, Book * b)
                 lib->books[j] = lib->books[j-1];
             }
             lib->books[i] = (Book)*b;
-
             break;
         }
         else if (isSorted == 0)
         {
             printf("\nImpossible d'ajouter plusieurs livre avec le meme nom !\n");
             lib->nbBooks--;
+            lib->nbBookAdded--;
             lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
 
             return;
@@ -80,13 +81,6 @@ void deleteBook(Library * lib)
         }
     }
 }
-/*
-#include <windows.h>
-void color(int t,int f)
-{
-        HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
-            SetConsoleTextAttribute(H,f*16+t);
-}*/
 
 /**
 * Print all the books of the library in the console
@@ -95,17 +89,6 @@ void printBooks(Book* books, int size)
 {
    for(int i = 0 ; i < size ; i++)
     {
-        //printf("\n");
-        /*color(15, 0);
-        color(3, 3);
-        printf("a");
-        color(15, 0);
-        printf("-%i-", i+1);
-        color(3, 3);
-        printf("a");
-        color(15, 0);*/
-
-        //printf("- %d - \n", i+1);
         printf("-%d-\n", i+1);
         printf("\t\e[1m Nom : \e[0m %s \n", books[i].title);
         printf("\t\e[1m Auteur : \e[0m %s\n", books[i].author);
@@ -284,18 +267,6 @@ void editBookFromLibrary(Library * lib)
 
 }
 
-/**
-    for (int i = 0 ; i < (lib->nbBooks - 1) ; i++)
-    {
-        for (int j = 1 ; j < lib->nbBooks ; j++)
-        {
-
-            if (isAlphabeticallySorted(lib->books[i]) == 1)
-        }
-
-        if (isAlphabeticallySorted)
-    }
-*/
 
 /**
 * Search for a book, all books with the search sub-chain in the author will appear.
@@ -355,6 +326,67 @@ void searchBookByPublishYear(Library * lib, int publishYear)
     }
 }
 
+/**
+* Print some statistics about the lib
+*/
+void printStats(Library * lib)
+{
+    if (lib->nbBooks == 0)
+    {
+        printf("Votre bibliotheque ne comporte aucun livre !");
+    }
+    else
+    {
+        printf("Votre bibliotheque comporte %d livres !\n", lib->nbBooks);
+    }
+
+
+    if (lib->nbBookAdded != 0)
+    {
+        printf("Depuis sa creation %d livres on ete ajoutes.\n", lib->nbBookAdded);
+    }
+
+
+    // Count the numbers of book borrowed
+    // get the max publish date
+    // get the min publish date
+    int maxDate = -1;
+    int minDate = -1;
+    int date;
+    int nbBorrowedBook=0;
+    for (int i = 0 ; i < lib->nbBooks ; i++)
+    {
+        if ((lib->books[i].publishYear > maxDate) || (maxDate == -1))
+        {
+            maxDate = lib->books[i].publishYear;
+        }
+        if ((lib->books[i].publishYear < minDate)|| (minDate == -1))
+        {
+            minDate = lib->books[i].publishYear;
+        }
+        if (lib->books[i].isBorrowed == true)
+        {
+            nbBorrowedBook++;
+        }
+    }
+
+    printf("\n");
+
+    printf("Le livre le plus ancien de votre bibliotheque a ete publie en : %d\n", minDate);
+    printf("Le livre le plus recent de votre bibliotheque a ete publie en : %d\n", maxDate);
+
+    printf("\n");
+
+    if (nbBorrowedBook == 0)
+    {
+        printf("Actuellement %d sont empruntes.\n", nbBorrowedBook);
+
+    }
+
+    printf("\n");
+    printf("\nAppuyer sur n'importe quelle touche pour continuer\n");
+    getch();
+}
 
 /**
 * Free all memory from attributes

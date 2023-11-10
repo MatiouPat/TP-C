@@ -71,7 +71,7 @@ int main()
 {
     Book *books;
     Book *newBook;
-    Library lib = {books, 0};
+    Library lib = {books, 0, 0};
     Library * ptrLib = &lib;
 
     int actionChoice = 0;
@@ -86,7 +86,7 @@ int main()
     while(isExecute)
     {
         printf("\033c");
-        printf("\e[1m Que voulez-vous faire ? \e[0m \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 4) Rechercher un livre... \n 5) Emprunter un livre \n 6) Rendre un livre \n 7) Modifier un livre \n 0) Quitter l'application \n");
+        printf("\e[1m Que voulez-vous faire ? \e[0m \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 4) Rechercher un livre... \n 5) Emprunter un livre \n 6) Rendre un livre \n 7) Modifier un livre \n 9) Afficher statistiques \n 0) Quitter l'application \n");
         scanf("%d", &actionChoice);
         switch(actionChoice)
         {
@@ -157,6 +157,10 @@ int main()
             case 7:
                 printf("\033c");
                 editBookFromLibrary(&lib);
+                break;
+            case 9:
+                printf("\033c");
+                printStats(&lib);
                 break;
             default:
                 break;

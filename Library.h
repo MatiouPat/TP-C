@@ -8,6 +8,7 @@ typedef struct Library
 {
     Book *books;
     int nbBooks;
+    int nbBookAdded;
     Book (*searchBook)()
 
 } Library;
@@ -22,4 +23,6 @@ int searchBookByExactTitle(Library *, char[]);
 void borrowBook(Library *);
 void freeLib(Library *);
 void editBookFromLibrary(Library *);
+void printStats(Library *);
+
 #endif // LIBRARY_H_INCLUDED

@@ -61,22 +61,45 @@ int initialization(Library * lib)
 int main()
 {
     Book *books;
+    Book newBook;
     Library lib = {books, 0};
+    int actionChoice = 0;
+    bool isExecute = true;
 
     if (initialization(&lib)) {
         return 1;
     }
 
-    //createBook(&lib);
-    //createBook(&lib);
-    printBooks(&lib);
-    //borrowBook(&lib);
-    //deleteBook(&lib);
-    //deleteBook(&lib);
-    Book b = createBook();
-    addBook(&lib, b);
 
-    printBooks(&lib);
+    while(isExecute)
+    {
+        printf("\033c");
+        printf("Que voulez-vous faire ? \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 0) Quitter l'application \n");
+        scanf("%d", &actionChoice);
+        switch(actionChoice)
+        {
+            case 0:
+                isExecute = false;
+                break;
+            case 1:
+                printf("\033c");
+                printBooks(&lib);
+                printf("Appuyer sur n'importe quel touche pour continuer\n");
+                getch();
+                break;
+            case 2:
+                printf("\033c");
+                newBook = createBook();
+                addBook(&lib, newBook);
+                break;
+            case 3:
+                printf("\033c");
+                deleteBook(&lib);
+                break;
+            default:
+                break;
+        }
+    }
 
     printf("free");
     freeLib(&lib);

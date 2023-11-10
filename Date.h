@@ -11,5 +11,6 @@ typedef struct Date
 }Date;
 
 Date now();
+Date calculateDateFromDuration(Date, int);
 
 #endif // DATE_H_INCLUDED

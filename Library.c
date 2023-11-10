@@ -98,6 +98,7 @@ void printBooks(Book* books, int size)
 void borrowBook(Library * lib)
 {
     char titleToBorrow[100];
+    int returnChoice;
 
     printf("Quel livre voulez-vous emprunter ? \n\r");
     scanf(" %[^\n]", &titleToBorrow);
@@ -106,17 +107,34 @@ void borrowBook(Library * lib)
 
     if(indexToBorrow != -1)
     {
-        lib->books[indexToBorrow].isBorrowed = true;
-        lib->books[indexToBorrow].borrowingDate = now();
-
+        Date initalDate = now();
         int day;
         int month;
         int year;
-        printf("Quand rendez-vous le livre ? (ex : 10/11/2023) \n\r");
-        scanf("%d/%d/%d", &day, &month, &year);
+        int duration;
 
-        Date returnDate = {day, month, year};
-        lib->books[indexToBorrow].returnDate = returnDate;
+        lib->books[indexToBorrow].isBorrowed = true;
+        lib->books[indexToBorrow].borrowingDate = initalDate;
+
+        printf("Quand rendez-vous le livre ? \n 1) Sur une date precise \n 2) Sur une duree \n ");
+        scanf("%i", &returnChoice);
+
+        if(returnChoice == 1)
+        {
+            printf("A quelle date rendez-vous le livre ? (ex : 10/11/2023) \n\r");
+            scanf("%d/%d/%d", &day, &month, &year);
+
+            Date returnDate = {day, month, year};
+            lib->books[indexToBorrow].returnDate = returnDate;
+        }
+        else
+        {
+            printf("Dans combien de temps rendez-vous le livre ? (en jour) \n\r");
+            scanf("%d", &duration);
+
+            Date returnDate = calculateDateFromDuration(initalDate, duration);
+            lib->books[indexToBorrow].returnDate = returnDate;
+        }
     }
 }
 

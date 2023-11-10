@@ -16,6 +16,7 @@ typedef struct Book
 
 
 Book createBook();
+Book * editBook(Book *);
 int isAlphabeticalSorted(Book*, Book*);
 
 #endif // BOOK_H_INCLUDED

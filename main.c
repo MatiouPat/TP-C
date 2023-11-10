@@ -74,7 +74,7 @@ int main()
     while(isExecute)
     {
         printf("\033c");
-        printf("Que voulez-vous faire ? \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 4) Rechercher par titre \n 5) Emprunter un livre \n 6) Rendre un livre \n 0) Quitter l'application \n");
+        printf(" Que voulez-vous faire ? \n\n \t1) Voir tous les livres \n \t2) Creer un livre \n \t3) Supprimer un livre \n \t4) Rechercher par titre \n \t5) Emprunter un livre \n \t6) Rendre un livre \n \t7) Modifier un livre \n \t0) Quitter l'application \n");
         scanf("%d", &actionChoice);
         switch(actionChoice)
         {
@@ -102,7 +102,7 @@ int main()
                 printf("Quel livre recherchez-vous ? \n");
                 scanf(" %[^\n]", &titleToSearch);
                 searchBookByApproximateTitle(&lib, titleToSearch);
-                printf("Appuyer sur n'importe quel touche pour continuer\n");
+                printf("Appuyer sur n'importe quelle touche pour continuer\n");
                 getch();
             case 5:
                 printf("\033c");
@@ -111,6 +111,10 @@ int main()
             case 6:
                 printf("\033c");
                 returnBook(&lib);
+                break;
+            case 7:
+                printf("\033c");
+                editBookFromLibrary(&lib);
                 break;
             default:
                 break;

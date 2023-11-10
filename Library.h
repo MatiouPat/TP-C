@@ -21,5 +21,5 @@ Book searchBook();
 int searchBookByExactTitle(Library *, char[]);
 void borrowBook(Library *);
 void freeLib(Library *);
-
+void editBookFromLibrary(Library *);
 #endif // LIBRARY_H_INCLUDED

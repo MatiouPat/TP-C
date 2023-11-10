@@ -183,7 +183,7 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
         for(int i = 0 ; i < nbFound ; i++)
         {
             printf("-%d-\n", i);
-            printf("\tNom : %s \n", findBooks[i].title);
+            printf("\tTitre : %s \n", findBooks[i].title);
             printf("\tAuteur : %s\n", findBooks[i].author);
             printf("\tDate de publication : %d/%d/%d\n", findBooks[i].publishDate.day, findBooks[i].publishDate.month, findBooks[i].publishDate.year);
 
@@ -194,6 +194,36 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
         }
         free(findBooks);
     }
+}
+
+void editBookFromLibrary(Library * lib)
+{
+    // verifier que le livre existe dans la lib
+    printf("Entrer le titre du livre a modifier : ");
+    char title [100];
+    scanf("%s", title);
+    getchar();
+    int index = -1;
+    for (int i = 0 ; i < lib->nbBooks ; i++)
+    {
+        if(strcmp(title, lib->books[i].title) == 0)
+        {
+            index = i;
+            break;
+        }
+
+    }
+    if (index == -1)
+    {
+        printf("Le livre n'a pas ete trouve :(\n");
+    }
+    else
+    {
+        Book * ptrBookToEdit;
+        ptrBookToEdit = &(lib->books[index]);
+        editBook(ptrBookToEdit);
+    }
+
 }
 
 /**

@@ -1,6 +1,9 @@
 
 #include "Book.h"
 
+/**
+* Create a new book by querying the user
+*/
 Book createBook()
 {
     //Book creation
@@ -17,6 +20,59 @@ Book createBook()
     scanf("%d", &b.publishDate.year);
 
     return b;
+}
+
+
+/**
+* Edit an existing book by querying the user
+*/
+Book * editBook(Book * book)
+{
+
+    printf("\nVous avez choisi de modifier le livre suivant,\n");
+    printf("\tTitre : %s \n", book->title);
+    printf("\tAuteur : %s\n", book->author);
+    printf("\tDate de publication : %d\n", book->publishDate.year);
+
+    printf("\nQuel information voulez vous modifier ?\n");
+    int actionChoice;
+    printf("\t1) Le titre du livre \n \t2) L'auteur \n \t3) La date de publication \n \t0) Annuler \n");
+    scanf("%d", &actionChoice);
+
+    switch(actionChoice)
+    {
+        case 0:
+            return &book;
+        case 1:;
+            char newTitle [100];
+            printf("Nouveau titre  : ");
+            scanf(" %[^\n]", newTitle);
+            strcpy(book->title, newTitle);
+            break;
+        case 2:;
+            char newAuthor[100];
+            printf("Nouvel auteur  : ");
+            scanf(" %[^\n]", newAuthor);
+            strcpy(book->author, newAuthor);
+            break;
+        case 3:;
+            char newPublishDate[20];
+            printf("Nouvelle date de publication  : ");
+            scanf(" %[^\n]", newPublishDate);
+            book->publishDate.year = atoi(newPublishDate);
+            break;
+    }
+
+    printf("\nLivre modifie avec succes !\n");
+    printf("\nVoici les nouvelles informations du livre,\n");
+    printf("\tTitre : %s \n", book->title);
+    printf("\tAuteur : %s\n", book->author);
+    printf("\tDate de publication : %d\n", book->publishDate.year);
+
+    printf("\nAppuyer sur n'importe quelle touche pour continuer\n");
+    getch();
+
+    return &book;
 }
 
 

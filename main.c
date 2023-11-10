@@ -81,12 +81,15 @@ int main()
         return 1;
     }
 
-    getch();
-
     while(isExecute)
     {
         printf("\033c");
-        printf("\e[1m Que voulez-vous faire ? \e[0m \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 4) Rechercher un livre... \n 5) Emprunter un livre \n 6) Rendre un livre \n 7) Modifier un livre \n 9) Afficher statistiques \n 0) Quitter l'application \n");
+        int numberOfLateReturn = getNumberOfLateReturns(lib);
+        if(numberOfLateReturn > 0)
+        {
+            printf("\e[5m\e[31m/!\\ Attention ! %d livre(s) pas encore rendu !\e[0m \n\n", numberOfLateReturn);
+        }
+        printf("\e[1m Que voulez-vous faire ? \e[0m \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 4) Rechercher un livre... \n 5) Emprunter un livre \n 6) Rendre un livre \n 7) Modifier un livre \n 8) Voir les livres en retard de rendu \n 9) Afficher statistiques \n 0) Quitter l'application \n");
         scanf("%d", &actionChoice);
         switch(actionChoice)
         {
@@ -158,6 +161,11 @@ int main()
                 printf("\033c");
                 editBookFromLibrary(&lib);
                 break;
+            case 8:
+                printf("\033c");
+                searchBookInLateReturn(&lib);
+                printf("Appuyer sur n'importe quelle touche pour continuer\n");
+                getch();
             case 9:
                 printf("\033c");
                 printStats(&lib);

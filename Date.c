@@ -19,26 +19,36 @@ Date now()
 Date calculateDateFromDuration(Date initialDate, int duration)
 {
     Date finalDate;
-    struct tm initiaDateTm = {0};
-    time_t initialTimestamp;
-    struct tm durationTm = {0};
-    time_t durationTimestamp;
-    time_t finalTimestamp;
-    struct tm *finalDateTm;
+    struct tm *local = {0};
 
-    initiaDateTm.tm_year = initialDate.year -1900;
-    initiaDateTm.tm_mon = initialDate.month - 1;
-    initiaDateTm.tm_mday = initialDate.day;
+    local->tm_year = initialDate.year -1900;
+    local->tm_mon = initialDate.month - 1;
+    local->tm_mday = initialDate.day;
 
-    initiaDateTm.tm_mday += duration;
+    local->tm_mday += duration;
 
-    mktime(&initiaDateTm);
-    asctime(&initiaDateTm);
-    localtime(&initiaDateTm);
+    mktime(&local);
+    asctime(&local);
+    localtime(&local);
 
-    finalDate.day = initiaDateTm.tm_mday;
-    finalDate.month = initiaDateTm.tm_mon + 1;
-    finalDate.year = initiaDateTm.tm_year + 1900;
+    finalDate.day = local->tm_mday;
+    finalDate.month = local->tm_mon + 1;
+    finalDate.year = local->tm_year + 1900;
 
     return finalDate;
 }
+
+bool hasExpiredReturnDate(Date returnDate)
+{
+    Date currentDate = now();
+    if(returnDate.year <= currentDate.year && returnDate.month <= currentDate.month && returnDate.day <= currentDate.day)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+

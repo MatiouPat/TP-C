@@ -395,3 +395,42 @@ void freeLib(Library * lib)
 {
     free(lib->books);
 }
+
+int getNumberOfLateReturns(Library * lib)
+{
+    int numberOfLateReturns = 0;
+    for(int i = 0; i < lib->nbBooks; i++)
+    {
+        if(lib->books[i].isBorrowed && hasExpiredReturnDate(lib->books[i].returnDate))
+        {
+            numberOfLateReturns++;
+        }
+    }
+    return numberOfLateReturns;
+}
+
+void searchBookInLateReturn(Library * lib)
+{
+    int nbFound = 0;
+    Book *findBooks = (Book*)malloc(nbFound * sizeof(Book));
+
+    if(findBooks == NULL)
+    {
+        /**/
+    }
+    else
+    {
+        //Search by title
+        for(int i = 0; i < lib->nbBooks; i++)
+        {
+            if(lib->books[i].isBorrowed && hasExpiredReturnDate(lib->books[i].returnDate))
+            {
+                nbFound++;
+                findBooks = (Book*)realloc(findBooks, nbFound * sizeof(Book));
+                findBooks[nbFound-1] = lib->books[i];
+            }
+        }
+        printBooks(findBooks, nbFound);
+        free(findBooks);
+    }
+}

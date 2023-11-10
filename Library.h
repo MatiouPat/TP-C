@@ -18,9 +18,9 @@ void addBook(Library *, Book *);
 void deleteBook(Library *);
 void printBooks(Book*, int);
 void borrowBook(Library *);
-void returnBook(Library *)
+void returnBook(Library *);
 int searchBookByExactTitle(Library *, char[]);
-void searchBookByApproximateTitle(Library *, char[]});
+void searchBookByApproximateTitle(Library *, char[]);
 void editBookFromLibrary(Library *);
 void searchBookByAuthor(Library *, char[]);
 void searchBookByPublishYear(Library *, int);

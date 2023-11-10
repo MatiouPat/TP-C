@@ -80,7 +80,7 @@ int main()
     while(isExecute)
     {
         printf("\033c");
-        int numberOfLateReturn = getNumberOfLateReturns(lib);
+        int numberOfLateReturn = getNumberOfLateReturns(&lib);
         if(numberOfLateReturn > 0)
         {
             printf("\e[5m\e[31m/!\\ Attention ! %d livre(s) pas encore rendu !\e[0m \n\n", numberOfLateReturn);

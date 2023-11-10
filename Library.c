@@ -212,7 +212,6 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
     }
 }
 
-
 void editBookFromLibrary(Library * lib)
 {
     // verifier que le livre existe dans la lib
@@ -396,6 +395,9 @@ void freeLib(Library * lib)
     free(lib->books);
 }
 
+/**
+* Returns the number of books overdue for return
+*/
 int getNumberOfLateReturns(Library * lib)
 {
     int numberOfLateReturns = 0;
@@ -409,6 +411,9 @@ int getNumberOfLateReturns(Library * lib)
     return numberOfLateReturns;
 }
 
+/**
+* Displays books that are overdue for return
+*/
 void searchBookInLateReturn(Library * lib)
 {
     int nbFound = 0;

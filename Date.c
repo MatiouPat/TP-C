@@ -1,5 +1,8 @@
 #include "Date.h"
 
+/**
+* Returns today's date via Date object
+*/
 Date now()
 {
     Date todayDateFormatted;
@@ -16,6 +19,9 @@ Date now()
     return todayDateFormatted;
 }
 
+/**
+* Calculate a Date object with a duration provided in relation to the current date
+*/
 Date calculateDateFromDuration(Date initialDate, int duration)
 {
     Date finalDate;
@@ -38,10 +44,13 @@ Date calculateDateFromDuration(Date initialDate, int duration)
     return finalDate;
 }
 
+/**
+* Returns true if the date is older and not if it is more equal or more recent than the current date.
+*/
 bool hasExpiredReturnDate(Date returnDate)
 {
     Date currentDate = now();
-    if(returnDate.year <= currentDate.year && returnDate.month <= currentDate.month && returnDate.day <= currentDate.day)
+    if(returnDate.year <= currentDate.year && returnDate.month <= currentDate.month && returnDate.day < currentDate.day)
     {
         return true;
     }

@@ -18,6 +18,7 @@ Book getBook(Library *, char * title);
 void deleteBook(Library *);
 void printBooks();
 Book searchBook();
+int searchBookByExactTitle(Library *, char[]);
 void borrowBook(Library *);
 void freeLib(Library *);
 

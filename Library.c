@@ -22,25 +22,11 @@ void addBook(Library * lib)
 void deleteBook(Library * lib)
 {
     char titleToDelete[100];
-    int indexToDelete = -1;
 
     printf("Quel titre voulez-vous supprimer ? \n\r");
     scanf(" %[^\n]", &titleToDelete);
 
-    //Search by title
-    int i = 0;
-
-    printf("test\n");
-
-    while((i < (lib->nbBooks - 1)) && (indexToDelete == -1))
-    {
-        if(strcmp(titleToDelete, lib->books[i].title) == 0)
-        {
-            indexToDelete = i;
-        }
-        i++;
-    }
-
+    int indexToDelete = searchBookByExactTitle(lib, titleToDelete);
 
     //Delete book if title is found
     if(indexToDelete != -1)
@@ -96,22 +82,42 @@ void printBooks(Library * lib)
 */
 void borrowBook(Library * lib)
 {
-    int indexToBorrow = -1;
+    char titleToBorrow[100];
 
     printf("Quel livre voulez-vous emprunter ? \n\r");
-    scanf("%d", &indexToBorrow);
+    scanf(" %[^\n]", &titleToBorrow);
 
-    lib->books[indexToBorrow].isBorrowed = true;
-    lib->books[indexToBorrow].borrowingDate = now();
+    int indexToBorrow = searchBookByExactTitle(lib, titleToBorrow);
 
-    int day;
-    int month;
-    int year;
-    printf("Quand rendez-vous le livre ? (ex : 10/11/2023) \n\r");
-    scanf("%d/%d/%d", &day, &month, &year);
+    if(indexToBorrow != -1)
+    {
+        lib->books[indexToBorrow].isBorrowed = true;
+        lib->books[indexToBorrow].borrowingDate = now();
 
-    Date returnDate = {day, month, year};
-    lib->books[indexToBorrow].returnDate = returnDate;
+        int day;
+        int month;
+        int year;
+        printf("Quand rendez-vous le livre ? (ex : 10/11/2023) \n\r");
+        scanf("%d/%d/%d", &day, &month, &year);
+
+        Date returnDate = {day, month, year};
+        lib->books[indexToBorrow].returnDate = returnDate;
+    }
+}
+
+int searchBookByExactTitle(Library * lib, char titleBook[100])
+{
+    int foundBookIndex = -1;
+    //Search by title
+    int i = 0;
+    while((i < (lib->nbBooks - 1)) && (foundBookIndex == -1))
+    {
+        if(strcmp(titleBook, lib->books[i].title) == 0)
+        {
+            foundBookIndex = i;
+        }
+        i++;
+    }
 }
 
 /**

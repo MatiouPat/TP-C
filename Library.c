@@ -112,6 +112,9 @@ void borrowBook(Library * lib)
     }
 }
 
+/**
+* Search for a book, only those with exactly the same title will appear
+*/
 int searchBookByExactTitle(Library * lib, char titleBook[100])
 {
     int foundBookIndex = -1;
@@ -126,6 +129,46 @@ int searchBookByExactTitle(Library * lib, char titleBook[100])
         i++;
     }
     return foundBookIndex;
+}
+
+/**
+* Search for a book, all books with the search sub-chain in the title will appear.
+*/
+void searchBookByApproximateTitle(Library * lib, char titleBook[100])
+{
+    int nbFound = 0;
+    Book *findBooks = (Book*)malloc(nbFound * sizeof(Book));
+
+    if(findBooks == NULL)
+    {
+        /**/
+    }
+    else
+    {
+        //Search by title
+        for(int i = 0; i < (lib->nbBooks - 1); i++)
+        {
+            if(strstr(lib->books[i].title, titleBook) != NULL)
+            {
+                nbFound++;
+                findBooks = (Book*)realloc(findBooks, nbFound * sizeof(Book));
+                findBooks[nbFound-1] = lib->books[i];
+            }
+        }
+        for(int i = 0 ; i < nbFound ; i++)
+        {
+            printf("-%d-\n", i);
+            printf("\tNom : %s \n", findBooks[i].title);
+            printf("\tAuteur : %s\n", findBooks[i].author);
+            printf("\tDate de publication : %d/%d/%d\n", findBooks[i].publishDate.day, findBooks[i].publishDate.month, findBooks[i].publishDate.year);
+
+            printf("\tDisponible : %s\n", findBooks[i].isBorrowed?"Non":"Oui");
+
+            printf("\n");
+
+        }
+        free(findBooks);
+    }
 }
 
 /**

@@ -14,7 +14,7 @@ Book createBook()
     scanf(" %[^\n]", b.author);
 
     printf("\tA quelle date a-t-il ete publie ? ");
-    scanf("%d/%d/%d", &b.publishDate.day, &b.publishDate.month, &b.publishDate.year);
+    scanf("%d", &b.publishDate.year);
 
     return b;
 }

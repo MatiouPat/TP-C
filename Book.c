@@ -1,6 +1,9 @@
 
 #include "Book.h"
 
+/**
+* Create a new book by querying the user
+*/
 Book createBook()
 {
     //Book creation
@@ -21,21 +24,100 @@ Book createBook()
 
 
 /**
-* Checks that the first book passed as a parameter is sorted alphabetically compared to the second
+* Edit an existing book by querying the user
 */
-bool isAlphabeticallySorted(Book * b1, Book * b2)
+Book * editBook(Book * book)
 {
-    int i = 0;
-    int lenBook1 = 0;
-    printf("%c\n", b1->title[0]);
 
-    while (b1->title[i] != '\0')
+    printf("\nVous avez choisi de modifier le livre suivant,\n");
+    printf("\tTitre : %s \n", book->title);
+    printf("\tAuteur : %s\n", book->author);
+    printf("\tDate de publication : %d\n", book->publishDate.year);
+
+    printf("\nQuel information voulez vous modifier ?\n");
+    int actionChoice;
+    printf("\t1) Le titre du livre \n \t2) L'auteur \n \t3) La date de publication \n \t0) Annuler \n");
+    scanf("%d", &actionChoice);
+
+    switch(actionChoice)
     {
-        printf("%s\n", (b1->title[i] == '\0')?"true":"false");
-        printf("%c\n",b1->title[i]);
-        lenBook1;
+        case 0:
+            return &book;
+        case 1:;
+            char newTitle [100];
+            printf("Nouveau titre  : ");
+            scanf(" %[^\n]", newTitle);
+            strcpy(book->title, newTitle);
+            break;
+        case 2:;
+            char newAuthor[100];
+            printf("Nouvel auteur  : ");
+            scanf(" %[^\n]", newAuthor);
+            strcpy(book->author, newAuthor);
+            break;
+        case 3:;
+            char newPublishDate[20];
+            printf("Nouvelle date de publication  : ");
+            scanf(" %[^\n]", newPublishDate);
+            book->publishDate.year = atoi(newPublishDate);
+            break;
     }
 
-    printf("%d\n", lenBook1);
+    printf("\nLivre modifie avec succes !\n");
+    printf("\nVoici les nouvelles informations du livre,\n");
+    printf("\tTitre : %s \n", book->title);
+    printf("\tAuteur : %s\n", book->author);
+    printf("\tDate de publication : %d\n", book->publishDate.year);
 
+    printf("\nAppuyer sur n'importe quelle touche pour continuer\n");
+    getch();
+
+    return &book;
+}
+
+
+/**
+* Checks that the first book passed as a parameter is sorted alphabetically compared to the second
+* @returns 0: book1.title = book1.title
+* @returns 1: book1.title < book2.title (sorted)
+* @returns 2: book1.title > book2.title (not sorted)
+*/
+int isAlphabeticallySorted(Book * b1, Book * b2)
+{
+    int i = 0;
+    char letterB1, letterB2;
+
+    // We compare letter to letter and return in case one is greater than other
+    while ((b1->title[i] != '\0') && (b2->title[i] != '\0'))
+    {
+        letterB1 = tolower(b1->title[i]);
+        letterB2 = tolower(b2->title[i]);
+
+        if (letterB1 < letterB2)
+        {
+            return 1;
+        }
+        else if (letterB1 > letterB2)
+        {
+            printf("tic");
+            return 2;
+        }
+
+        i++;
+    }
+
+    // If one or both of the string are finished
+    // we check their length
+    if ((b1->title[i] == '\0') && (b2->title[i] == '\0'))
+    {
+        return 0;
+    }
+    else if (b1->title[i] == '\0')
+    {
+        return 1;
+    }
+    else
+    {
+        return 2;
+    }
 }

@@ -58,6 +58,7 @@ int initialization(Library * lib)
 }
 
 
+
 int main()
 {
     Book *books;
@@ -69,7 +70,6 @@ int main()
     if (initialization(&lib)) {
         return 1;
     }
-
 
     while(isExecute)
     {
@@ -141,6 +141,10 @@ int main()
             case 6:
                 printf("\033c");
                 returnBook(&lib);
+                break;
+            case 7:
+                printf("\033c");
+                editBookFromLibrary(&lib);
                 break;
             default:
                 break;

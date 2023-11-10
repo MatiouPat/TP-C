@@ -6,19 +6,27 @@
 */
 void addBook(Library * lib, Book b)
 {
+    printf("add book\n");
     //Memory allocation
     lib->nbBooks++;
     lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
 
+    printf("realloc\n");
 
-    for (int i = 0 ; i < lib->nbBooks ; i++)
+    //
+    for (int i = 0 ; i < (lib->nbBooks - 1) ; i++)
     {
-        if(strcmp(b.title, lib->books[i].title) == 0)
+        if (isAlphabeticallySorted(b, lib->books[i]) == 1)
         {
-
+            for (int j = (lib->nbBooks - 1) ; j > i; j--) {
+                    printf("%d %d\n", i, j);
+                lib->books[j] = lib->books[j-1];
+            }
+            lib->books[i] = b;
+            break;
         }
     }
-    lib->books[lib->nbBooks-1] = b;
+    //lib->books[lib->nbBooks-1] = b;
 
     printf("\n Livre %s ajoute !\n", b.title);
 }
@@ -176,6 +184,49 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
         free(findBooks);
     }
 }
+
+void editBookFromLibrary(Library * lib)
+{
+    // verifier que le livre existe dans la lib
+    printf("Entrer le titre du livre a modifier : ");
+    char title [100];
+    scanf("%s", title);
+    getchar();
+    int index = -1;
+    for (int i = 0 ; i < lib->nbBooks ; i++)
+    {
+        if(strcmp(title, lib->books[i].title) == 0)
+        {
+            index = i;
+            break;
+        }
+
+    }
+    if (index == -1)
+    {
+        printf("Le livre n'a pas ete trouve :(\n");
+    }
+    else
+    {
+        Book * ptrBookToEdit;
+        ptrBookToEdit = &(lib->books[index]);
+        editBook(ptrBookToEdit);
+    }
+
+}
+
+/**
+    for (int i = 0 ; i < (lib->nbBooks - 1) ; i++)
+    {
+        for (int j = 1 ; j < lib->nbBooks ; j++)
+        {
+
+            if (isAlphabeticallySorted(lib->books[i]) == 1)
+        }
+
+        if (isAlphabeticallySorted)
+    }
+*/
 
 /**
 * Search for a book, all books with the search sub-chain in the author will appear.

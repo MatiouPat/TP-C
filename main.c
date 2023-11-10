@@ -74,7 +74,7 @@ int main()
     while(isExecute)
     {
         printf("\033c");
-        printf("Que voulez-vous faire ? \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 4) Rechercher par titre \n 5) Emprunter un livre \n 6) Rendre un livre \n 0) Quitter l'application \n");
+        printf("\e[1m Que voulez-vous faire ? \e[0m \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 4) Rechercher un livre... \n 5) Emprunter un livre \n 6) Rendre un livre \n 0) Quitter l'application \n");
         scanf("%d", &actionChoice);
         switch(actionChoice)
         {
@@ -83,7 +83,7 @@ int main()
                 break;
             case 1:
                 printf("\033c");
-                printBooks(&lib);
+                printBooks(lib.books, lib.nbBooks);
                 printf("Appuyer sur n'importe quel touche pour continuer...\n");
                 getch();
                 break;
@@ -98,12 +98,42 @@ int main()
                 break;
             case 4:
                 printf("\033c");
+                int searchChoice = 0;
                 char titleToSearch[100];
-                printf("Quel livre recherchez-vous ? \n");
-                scanf(" %[^\n]", &titleToSearch);
-                searchBookByApproximateTitle(&lib, titleToSearch);
-                printf("Appuyer sur n'importe quel touche pour continuer\n");
-                getch();
+                char authorToSearch[100];
+                int yearToSearch;
+                printf("\e[1m Rechercher un livre... \e[0m \n 1) par titre \n 2) par auteur \n 3) par annee \n");
+                scanf("%d", &searchChoice);
+                switch(searchChoice)
+                {
+                    case 1:
+                        printf("\033c");
+                        printf("Quel titre de livre recherchez-vous ? \n");
+                        scanf(" %[^\n]", &titleToSearch);
+                        searchBookByApproximateTitle(&lib, titleToSearch);
+                        printf("Appuyer sur n'importe quel touche pour continuer\n");
+                        getch();
+                        break;
+                    case 2:
+                        printf("\033c");
+                        printf("Quel auteur recherchez-vous ? \n");
+                        scanf(" %[^\n]", &authorToSearch);
+                        searchBookByAuthor(&lib, authorToSearch);
+                        printf("Appuyer sur n'importe quel touche pour continuer\n");
+                        getch();
+                        break;
+                    case 3:
+                        printf("\033c");
+                        printf("Quel annee de publication recherchez-vous ? \n");
+                        scanf("%d", &yearToSearch);
+                        searchBookByPublishYear(&lib, yearToSearch);
+                        printf("Appuyer sur n'importe quel touche pour continuer\n");
+                        getch();
+                        break;
+                    default:
+                        break;
+                }
+                break;
             case 5:
                 printf("\033c");
                 borrowBook(&lib);

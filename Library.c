@@ -57,9 +57,9 @@ void color(int t,int f)
 /**
 * Print all the books of the library in the console
 */
-void printBooks(Library * lib)
+void printBooks(Book* books, int size)
 {
-   for(int i = 0 ; i < lib->nbBooks ; i++)
+   for(int i = 0 ; i < size ; i++)
     {
         //printf("\n");
         /*color(15, 0);
@@ -72,12 +72,12 @@ void printBooks(Library * lib)
         color(15, 0);*/
 
         //printf("- %d - \n", i+1);
-        printf("-%d-\n", i);
-        printf("\tNom : %s \n", lib->books[i].title);
-        printf("\tAuteur : %s\n", lib->books[i].author);
-        printf("\tDate de publication : %d\n", lib->books[i].publishDate.year);
+        printf("-%d-\n", i+1);
+        printf("\t\e[1m Nom : \e[0m %s \n", books[i].title);
+        printf("\t\e[1m Auteur : \e[0m %s\n", books[i].author);
+        printf("\t\e[1m Date de publication : \e[0m %d\n", books[i].publishDate.year);
 
-        printf("\tDisponible : %s\n", lib->books[i].isBorrowed?"Non":"Oui");
+        printf("\t\e[1m Disponible : \e[0m %s\n", books[i].isBorrowed?"\e[31m Non \e[0m":"\e[32m Oui \e[0m");
 
         printf("\n");
 
@@ -163,7 +163,7 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
     else
     {
         //Search by title
-        for(int i = 0; i < (lib->nbBooks - 1); i++)
+        for(int i = 0; i < (lib->nbBooks); i++)
         {
             if(strstr(lib->books[i].title, titleBook) != NULL)
             {
@@ -172,21 +172,69 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
                 findBooks[nbFound-1] = lib->books[i];
             }
         }
-        for(int i = 0 ; i < nbFound ; i++)
-        {
-            printf("-%d-\n", i);
-            printf("\tNom : %s \n", findBooks[i].title);
-            printf("\tAuteur : %s\n", findBooks[i].author);
-            printf("\tDate de publication : %d/%d/%d\n", findBooks[i].publishDate.day, findBooks[i].publishDate.month, findBooks[i].publishDate.year);
-
-            printf("\tDisponible : %s\n", findBooks[i].isBorrowed?"Non":"Oui");
-
-            printf("\n");
-
-        }
+        printBooks(findBooks, nbFound);
         free(findBooks);
     }
 }
+
+/**
+* Search for a book, all books with the search sub-chain in the author will appear.
+*/
+void searchBookByAuthor(Library * lib, char author[100])
+{
+    int nbFound = 0;
+    Book *findBooks = (Book*)malloc(nbFound * sizeof(Book));
+
+    if(findBooks == NULL)
+    {
+        /**/
+    }
+    else
+    {
+        //Search by title
+        for(int i = 0; i < (lib->nbBooks); i++)
+        {
+            if(strstr(lib->books[i].author, author) != NULL)
+            {
+                nbFound++;
+                findBooks = (Book*)realloc(findBooks, nbFound * sizeof(Book));
+                findBooks[nbFound-1] = lib->books[i];
+            }
+        }
+        printBooks(findBooks, nbFound);
+        free(findBooks);
+    }
+}
+
+/**
+* Search for a book, only books with year of publication will appear.
+*/
+void searchBookByPublishYear(Library * lib, int publishYear)
+{
+    int nbFound = 0;
+    Book *findBooks = (Book*)malloc(nbFound * sizeof(Book));
+
+    if(findBooks == NULL)
+    {
+        /**/
+    }
+    else
+    {
+        //Search by title
+        for(int i = 0; i < (lib->nbBooks - 1); i++)
+        {
+            if(lib->books[i].publishDate.year == publishYear)
+            {
+                nbFound++;
+                findBooks = (Book*)realloc(findBooks, nbFound * sizeof(Book));
+                findBooks[nbFound-1] = lib->books[i];
+            }
+        }
+        printBooks(findBooks, nbFound);
+        free(findBooks);
+    }
+}
+
 
 /**
 * Free all memory from attributes

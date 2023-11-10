@@ -33,6 +33,7 @@ Date calculateDateFromDuration(Date initialDate, int duration)
 
     local->tm_mday += duration;
 
+    //Switch to a timestamp to avoid exceeding the number of days in the month, etc...
     mktime(&local);
     asctime(&local);
     localtime(&local);

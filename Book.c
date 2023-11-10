@@ -8,7 +8,7 @@ void printBook(Book * book)
 {
         printf("\tNom : %s \n", book->title);
         printf("\tAuteur : %s\n", book->author);
-        printf("\tDate de publication : %d\n", book->publishDate.year);
+        printf("\tDate de publication : %d\n", book->publishYear);
         printf("\tDisponible : %s\n", book->isBorrowed?"Non":"Oui");
         if (book->isBorrowed)
         {
@@ -34,7 +34,7 @@ Book createBook()
     scanf(" %[^\n]", b.author);
 
     printf("\tA quelle date a-t-il ete publie ? ");
-    scanf("%d", &b.publishDate.year);
+    scanf("%d", &b.publishYear);
 
     return b;
 }
@@ -49,7 +49,7 @@ Book * editBook(Book * book)
     printf("\nVous avez choisi de modifier le livre suivant,\n");
     printf("\tTitre : %s \n", book->title);
     printf("\tAuteur : %s\n", book->author);
-    printf("\tDate de publication : %d\n", book->publishDate.year);
+    printf("\tDate de publication : %d\n", book->publishYear);
 
     printf("\nQuel information voulez vous modifier ?\n");
     int actionChoice;
@@ -76,7 +76,7 @@ Book * editBook(Book * book)
             char newPublishDate[20];
             printf("Nouvelle date de publication  : ");
             scanf(" %[^\n]", newPublishDate);
-            book->publishDate.year = atoi(newPublishDate);
+            book->publishYear = atoi(newPublishDate);
             break;
     }
 
@@ -84,7 +84,7 @@ Book * editBook(Book * book)
     printf("\nVoici les nouvelles informations du livre,\n");
     printf("\tTitre : %s \n", book->title);
     printf("\tAuteur : %s\n", book->author);
-    printf("\tDate de publication : %d\n", book->publishDate.year);
+    printf("\tDate de publication : %d\n", book->publishYear);
 
     printf("\nAppuyer sur n'importe quelle touche pour continuer\n");
     getch();

@@ -93,3 +93,27 @@ void printBooks(Library * lib)
     }
 }
 
+/**
+* Borrow a book with a specific return date
+*/
+void borrowBook(Library * lib)
+{
+    int indexToBorrow = -1;
+
+    printf("Quel livre voulez-vous emprunter ? \n\r");
+    scanf("%d", &indexToBorrow);
+
+    lib->books[indexToBorrow].isBorrowed = true;
+    lib->books[indexToBorrow].borrowingDate = now();
+
+    int day;
+    int month;
+    int year;
+    printf("Quand rendez-vous le livre ? (ex : 10/11/2023) \n\r");
+    scanf("%d/%d/%d", &day, &month, &year);
+
+    Date returnDate = {day, month, year};
+    lib->books[indexToBorrow].returnDate = returnDate;
+}
+
+

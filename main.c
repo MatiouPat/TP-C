@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "Library.h"
 #include "Book.h"
+#include "Date.h"
 
 /**
 * Create 50 Book and add them to the Library in parameters
@@ -36,8 +37,8 @@ int initialization(Library * lib)
         author[2] = '\0';
 
 
-        printf("%s\n",title);
-        printf("%s\n",author);
+        //printf("%s\n",title);
+        //printf("%s\n",author);
 
         // Random publish date between 2000 and 2020
         publishDate = 2000+rand()%21;
@@ -46,7 +47,7 @@ int initialization(Library * lib)
         Book b;
         strcpy(b.title, title);
         strcpy(b.author, author);
-        b.publishDate = publishDate;
+        //b.publishDate = publishDate;
         b.isBorrowed = false;
 
         // We add the book to the library
@@ -61,7 +62,7 @@ int initialization(Library * lib)
 
 int main()
 {
-    Book *books = (Book*)malloc(0 * sizeof(Book));
+    Book *books;
     Library lib = {books, 0};
 
     if (initialization(&lib)) {
@@ -71,8 +72,8 @@ int main()
 
     //createBook(&lib);
     //createBook(&lib);
-
-    printBooks();
+    printBooks(&lib);
+    borrowBook(&lib);
 
     //deleteBook(&lib);
     /*for(int i = 0; i < lib.nbBooks; i++)
@@ -81,7 +82,7 @@ int main()
         printf("Nom ");
         printf("%s", lib.books[i].title);
     }*/
-    printBooks(&lib);
+    //printBooks(&lib);
 
     printf("free");
     free(lib.books);

@@ -1,17 +1,17 @@
 #ifndef BOOK_H_INCLUDED
 #define BOOK_H_INCLUDED
 
-#include <time.h>
 #include <stdbool.h>
+#include "Date.h"
 
 typedef struct Book
 {
     char title[100];
     char author[100];
-    time_t publishDate;
+    Date publishDate;
     bool isBorrowed;
-    time_t borrowingDate;
-    time_t returnDate;
+    Date borrowingDate;
+    Date returnDate;
 }Book;
 
 #endif // BOOK_H_INCLUDED

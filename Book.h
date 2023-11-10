@@ -14,7 +14,7 @@ typedef struct Book
     Date returnDate;
 }Book;
 
-void printBook();
+void printBook(Book *);
 Book createBook();
 Book * editBook(Book *);
 

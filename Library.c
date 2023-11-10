@@ -93,8 +93,16 @@ void printBooks(Book* books, int size)
         printf("\t\e[1m Nom : \e[0m %s \n", books[i].title);
         printf("\t\e[1m Auteur : \e[0m %s\n", books[i].author);
         printf("\t\e[1m Date de publication : \e[0m %d\n", books[i].publishYear);
-
-        printf("\t\e[1m Disponible : \e[0m %s\n", books[i].isBorrowed?"\e[31m Non \e[0m":"\e[32m Oui \e[0m");
+        if(books[i].isBorrowed)
+        {
+            printf("\t\e[1m Disponible : \e[0m \e[31m Non \e[0m\n");
+            printf("\t\t\e[1m Emprunte le : %i/%i/%i \n", books[i].borrowingDate.day, books[i].borrowingDate.month, books[i].borrowingDate.year);
+            printf("\t\t\e[1m Normalement rendu le : %i/%i/%i \n", books[i].returnDate.day, books[i].returnDate.month, books[i].returnDate.year);
+        }
+        else
+        {
+            printf("\t\e[1m Disponible : \e[0m \e[32m Oui \e[0m\n");
+        }
 
         printf("\n");
 

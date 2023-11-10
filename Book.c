@@ -2,6 +2,23 @@
 #include "Book.h"
 
 /**
+* Print a book in the console
+*/
+void printBook(Book * book)
+{
+        printf("\tNom : %s \n", book->title);
+        printf("\tAuteur : %s\n", book->author);
+        printf("\tDate de publication : %d\n", book->publishDate.year);
+        printf("\tDisponible : %s\n", book->isBorrowed?"Non":"Oui");
+        if (book->isBorrowed)
+        {
+            printf("\tDate d'emprunt : %d/%d/%d", book->borrowingDate.day, book->borrowingDate.month, book->borrowingDate.year);
+            printf("\tDate de retour : %d/%d/%d", book->returnDate.day, book->returnDate.month, book->returnDate.year);
+
+        }
+}
+
+/**
 * Create a new book by querying the user
 */
 Book createBook()

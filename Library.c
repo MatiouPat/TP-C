@@ -196,6 +196,7 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
     }
 }
 
+
 void editBookFromLibrary(Library * lib)
 {
     // verifier que le livre existe dans la lib
@@ -203,26 +204,47 @@ void editBookFromLibrary(Library * lib)
     char title [100];
     scanf("%s", title);
     getchar();
-    int index = -1;
+
+    int indexes [lib->nbBooks];
+    int nbIndexes = 0; // nb of found books
+
     for (int i = 0 ; i < lib->nbBooks ; i++)
     {
         if(strcmp(title, lib->books[i].title) == 0)
         {
-            index = i;
-            break;
+            indexes[nbIndexes] = i;
+            nbIndexes++;
+            // On peut s'arreter ici si on est sur qu'il n'y a qu'un livre avec ce nom
         }
 
     }
-    if (index == -1)
+
+    int indexBookToEdit;
+
+    if (nbIndexes == 0)
     {
         printf("Le livre n'a pas ete trouve :(\n");
     }
+    else if (nbIndexes > 1)
+    {
+        printf("\nPlusieurs livres avec le meme nom ont ete trouves, lequel voulez vous modifier ?\n");
+        for (int i = 0 ; i < nbIndexes ; i++)
+        {
+            printf("%d)\n", indexes[i]);
+            printBook(lib->books[indexes[i]]);
+        }
+
+        scanf("%d", &indexBookToEdit);
+
+    }
     else
     {
-        Book * ptrBookToEdit;
-        ptrBookToEdit = &(lib->books[index]);
-        editBook(ptrBookToEdit);
+        indexBookToEdit = indexes[0];
     }
+
+    Book * ptrBookToEdit;
+    ptrBookToEdit = &(lib->books[indexBookToEdit]);
+    editBook(ptrBookToEdit);
 
 }
 

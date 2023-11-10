@@ -17,6 +17,5 @@ typedef struct Book
 void printBook();
 Book createBook();
 Book * editBook(Book *);
-void printBook();
 
 #endif // BOOK_H_INCLUDED

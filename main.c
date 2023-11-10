@@ -74,7 +74,7 @@ int main()
     while(isExecute)
     {
         printf("\033c");
-        printf("\e[1m Que voulez-vous faire ? \e[0m \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 4) Rechercher un livre... \n 5) Emprunter un livre \n 6) Rendre un livre \n 0) Quitter l'application \n");
+        printf("\e[1m Que voulez-vous faire ? \e[0m \n 1) Voir tous les livres \n 2) Creer un livre \n 3) Supprimer un livre \n 4) Rechercher un livre... \n 5) Emprunter un livre \n 6) Rendre un livre \n 7) Modifier un livre \n 0) Quitter l'application \n");
         scanf("%d", &actionChoice);
         switch(actionChoice)
         {
@@ -127,7 +127,7 @@ int main()
                         printf("Quel annee de publication recherchez-vous ? \n");
                         scanf("%d", &yearToSearch);
                         searchBookByPublishYear(&lib, yearToSearch);
-                        printf("Appuyer sur n'importe quel touche pour continuer\n");
+                        printf("Appuyer sur n'importe quelle touche pour continuer\n");
                         getch();
                         break;
                     default:

@@ -212,19 +212,22 @@ void editBookFromLibrary(Library * lib)
 
     if (nbIndexes == 0)
     {
-        printf("Le livre n'a pas ete trouve :(\n");
+        printf("\nLe livre n'a pas ete trouve :(\n");
+        printf("\nAppuyer sur n'importe quel touche pour continuer\n");
+        getch();
+        return;
     }
     else if (nbIndexes > 1)
     {
         printf("\nPlusieurs livres avec le meme nom ont ete trouves, lequel voulez vous modifier ?\n");
         for (int i = 0 ; i < nbIndexes ; i++)
         {
-            printf("%d)\n", indexes[i]);
+            printf("%d)\n", indexes[i]+1);
             printBook(lib->books[indexes[i]]);
         }
 
         scanf("%d", &indexBookToEdit);
-
+        indexBookToEdit--;
     }
     else
     {

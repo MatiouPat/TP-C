@@ -6,19 +6,27 @@
 */
 void addBook(Library * lib, Book b)
 {
+    printf("add book\n");
     //Memory allocation
     lib->nbBooks++;
     lib->books = (Book*)realloc(lib->books, lib->nbBooks * sizeof(Book));
 
+    printf("realloc\n");
 
-    for (int i = 0 ; i < lib->nbBooks ; i++)
+    //
+    for (int i = 0 ; i < (lib->nbBooks - 1) ; i++)
     {
-        if(strcmp(b.title, lib->books[i].title) == 0)
+        if (isAlphabeticallySorted(b, lib->books[i]) == 1)
         {
-
+            for (int j = (lib->nbBooks - 1) ; j > i; j--) {
+                    printf("%d %d\n", i, j);
+                lib->books[j] = lib->books[j-1];
+            }
+            lib->books[i] = b;
+            break;
         }
     }
-    lib->books[lib->nbBooks-1] = b;
+    //lib->books[lib->nbBooks-1] = b;
 
     printf("\n Livre %s ajoute !\n", b.title);
 }
@@ -170,6 +178,19 @@ void searchBookByApproximateTitle(Library * lib, char titleBook[100])
         free(findBooks);
     }
 }
+
+/**
+    for (int i = 0 ; i < (lib->nbBooks - 1) ; i++)
+    {
+        for (int j = 1 ; j < lib->nbBooks ; j++)
+        {
+
+            if (isAlphabeticallySorted(lib->books[i]) == 1)
+        }
+
+        if (isAlphabeticallySorted)
+    }
+*/
 
 /**
 * Free all memory from attributes

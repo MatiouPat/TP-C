@@ -58,6 +58,7 @@ int initialization(Library * lib)
 }
 
 
+
 int main()
 {
     Book *books;
@@ -69,7 +70,6 @@ int main()
     if (initialization(&lib)) {
         return 1;
     }
-
 
     while(isExecute)
     {

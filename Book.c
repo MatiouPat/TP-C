@@ -22,20 +22,46 @@ Book createBook()
 
 /**
 * Checks that the first book passed as a parameter is sorted alphabetically compared to the second
+* @returns 0: book1.title = book1.title
+* @returns 1: book1.title < book2.title (sorted)
+* @returns 2: book1.title > book2.title (not sorted)
 */
-bool isAlphabeticallySorted(Book * b1, Book * b2)
+int isAlphabeticallySorted(Book * b1, Book * b2)
 {
     int i = 0;
-    int lenBook1 = 0;
-    printf("%c\n", b1->title[0]);
+    char letterB1, letterB2;
 
-    while (b1->title[i] != '\0')
+    // We compare letter to letter and return in case one is greater than other
+    while ((b1->title[i] != '\0') && (b2->title[i] != '\0'))
     {
-        printf("%s\n", (b1->title[i] == '\0')?"true":"false");
-        printf("%c\n",b1->title[i]);
-        lenBook1;
+        letterB1 = tolower(b1->title[i]);
+        letterB2 = tolower(b2->title[i]);
+
+        if (letterB1 < letterB2)
+        {
+            return 1;
+        }
+        else if (letterB1 > letterB2)
+        {
+            printf("tic");
+            return 2;
+        }
+
+        i++;
     }
 
-    printf("%d\n", lenBook1);
-
+    // If one or both of the string are finished
+    // we check their length
+    if ((b1->title[i] == '\0') && (b2->title[i] == '\0'))
+    {
+        return 0;
+    }
+    else if (b1->title[i] == '\0')
+    {
+        return 1;
+    }
+    else
+    {
+        return 2;
+    }
 }

@@ -113,6 +113,23 @@ void borrowBook(Library * lib)
 }
 
 /**
+* Return a book with a specific return date
+*/
+void returnBook(Library * lib)
+{
+    char titleToReturn[100];
+
+    printf("Quel livre voulez-vous rendre ? \n\r");
+    scanf(" %[^\n]", &titleToReturn);
+
+    int indexToReturn = searchBookByExactTitle(lib, titleToReturn);
+    if(indexToReturn != -1)
+    {
+        lib->books[indexToReturn].isBorrowed = false;
+    }
+}
+
+/**
 * Search for a book, only those with exactly the same title will appear
 */
 int searchBookByExactTitle(Library * lib, char titleBook[100])
@@ -120,7 +137,7 @@ int searchBookByExactTitle(Library * lib, char titleBook[100])
     int foundBookIndex = -1;
     //Search by title
     int i = 0;
-    while((i < (lib->nbBooks - 1)) && (foundBookIndex == -1))
+    while((i < (lib->nbBooks)) && (foundBookIndex == -1))
     {
         if(strcmp(titleBook, lib->books[i].title) == 0)
         {
